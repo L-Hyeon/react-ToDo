@@ -1,14 +1,21 @@
 import React from "react";
+import { useToDoState } from "../../reducers/ToDoContext";
 import ToDoItem from "../ToDoItem/ToDoItem";
 import "./ToDoListStyle.css";
 
 function ToDoList() {
+  const tasks = useToDoState();
+
   return (
     <div class="ToDoListBlock">
-      <ToDoItem status={true} text="프로젝트 생성하기" />
-      <ToDoItem status={true} text="필요한 컴포넌트 정리하기" />
-      <ToDoItem status={true} text="컴포넌트 생성하기" />
-      <ToDoItem status={false} text="컴포넌트 디자인하기" />
+      {tasks.map((task) => (
+        <ToDoItem
+          key={task.id}
+          id={task.id}
+          text={task.text}
+          status={task.done}
+        />
+      ))}
     </div>
   );
 }
